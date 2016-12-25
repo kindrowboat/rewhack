@@ -1,0 +1,13 @@
+.MoleHole {
+  flex: 1; 
+  flex-grow: 1;
+  background-color: #222;
+  color: white;
+  margin: 5px;
+}
+
+.MoleHole.withMole {
+  background-color: #444;
+  background-image: URL('/mole_white.svg');
+  background-size: 100% 100%;
+}

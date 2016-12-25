@@ -6,8 +6,13 @@ class MoleHole extends Component {
   calculateClasses(){
     let className = "MoleHole";
     if(this.props.mole){
-      className += " withMole"
+      className += " withMole";
     }
+    if(this.props.whacked) {
+      className += " whacked ";
+      className += this.props.mole ? "hit" :  "miss";
+    }
+    console.log(className);
     return className;
   }
   

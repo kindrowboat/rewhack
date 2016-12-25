@@ -11,3 +11,12 @@
   background-image: URL('/mole_white.svg');
   background-size: 100% 100%;
 }
+
+.MoleHole.withMole.whacked.hit {
+  background-color: #ceb;
+  background-image: URL('/mole.svg');
+}
+
+.MoleHole.whacked.miss {
+  background-color: #f87;
+}

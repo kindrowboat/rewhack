@@ -10,7 +10,7 @@ class GameBoard extends Component {
         <div className="MoleRow">
           <MoleHole mole/>
           <MoleHole/>
-          <MoleHole/>
+          <MoleHole whacked/>
         </div>
         <div className="MoleRow">
           <MoleHole/>
@@ -19,7 +19,7 @@ class GameBoard extends Component {
         </div>
         <div className="MoleRow">
           <MoleHole/>
-          <MoleHole mole/>
+          <MoleHole mole whacked/>
           <MoleHole/>
         </div>
       </div>

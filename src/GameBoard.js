@@ -15,6 +15,13 @@ class GameBoard extends Component {
     }
   }
 
+  componentDidMount(){
+    this.whack(1);
+    this.moleUp(2);
+    this.moleUp(4);
+    this.whack(5);
+  }
+
   moleRow(rowNum){
     const startIndex = rowNum * this.holesPerRow;
     const stopIndex = startIndex + this.holesPerRow;
@@ -22,14 +29,32 @@ class GameBoard extends Component {
 
     for(let i = startIndex; i < stopIndex; i++){
       const holeState = this.state.holes[i];
-      holes.push(<MoleHole {...holeState}/>);
+      holes.push(<MoleHole key={i} {...holeState}/>);
     }
 
     return(
-      <div className="MoleRow">
+      <div className="MoleRow" key={rowNum}>
         { holes }
       </div>
     );
+  }
+
+  whack(hole){
+    this.setState(state => {
+      const prevHoleState = state.holes[hole];
+      const holes = state.holes.slice(0);
+      holes[hole] = { ...prevHoleState, whacked: true };
+      return { ...state, holes };
+    });
+  }
+
+  moleUp(hole){
+    this.setState(state => {
+      const prevHoleState = state.holes[hole];
+      const holes = state.holes.slice(0);
+      holes[hole] = { ...prevHoleState, mole: true };
+      return { ...state, holes };
+    });
   }
 
   render(){

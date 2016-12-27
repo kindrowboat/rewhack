@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './MoleHole.css';
 
 class MoleHole extends Component {
-    
+
   calculateClasses(){
     let className = "MoleHole";
     if(this.props.mole){
@@ -12,10 +12,9 @@ class MoleHole extends Component {
       className += " whacked ";
       className += this.props.mole ? "hit" :  "miss";
     }
-    console.log(className);
     return className;
   }
-  
+
   render(){
     return (
       <div className={this.calculateClasses()}>

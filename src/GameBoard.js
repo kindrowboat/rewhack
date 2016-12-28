@@ -29,7 +29,13 @@ class GameBoard extends Component {
 
     for(let i = startIndex; i < stopIndex; i++){
       const holeState = this.state.holes[i];
-      holes.push(<MoleHole key={i} {...holeState}/>);
+      holes.push(
+        <MoleHole
+          key={i}
+          onClick={this.whack.bind(this, i)}
+          {...holeState}
+        />
+      );
     }
 
     return(

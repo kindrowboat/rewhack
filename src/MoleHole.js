@@ -17,8 +17,10 @@ class MoleHole extends Component {
 
   render(){
     return (
-      <div className={this.calculateClasses()}>
-      </div>
+      <div
+        className={this.calculateClasses()}
+        onClick={this.props.onClick}
+      />
     );
   }
 }

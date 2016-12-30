@@ -8,6 +8,7 @@ class GameBoard extends Component {
   holesPerRow = 3;
   moleProbability = 1/3;
   tickFrequency = 2000;
+  whackShowDuration = 250;
 
   constructor(props){
     super(props);
@@ -18,7 +19,19 @@ class GameBoard extends Component {
   }
 
   componentDidMount() {
+    window.onkeydown = this.handleKeyDown;
     this.tick();
+  }
+
+  handleKeyDown = (event) => {
+    const key = event.key.toLowerCase();
+    const keyMap = [
+      'q', 'w', 'e',
+      'a', 's', 'd',
+      'z', 'x', 'c',
+    ];
+    const hole = keyMap.indexOf(key);
+    if(hole >= 0) this.whack(hole);
   }
 
   tick = () => {
@@ -63,6 +76,7 @@ class GameBoard extends Component {
 
   whack = (hole) => {
     this._setHoleState(hole, 'whacked', true);
+    setTimeout(this.unwhack.bind(this, hole), this.whackShowDuration);
   }
 
   unwhack = (hole) => {

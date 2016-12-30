@@ -3,8 +3,6 @@ import './MoleHole.css';
 
 class MoleHole extends Component {
 
-  whackShowTime = 250;
-
   calculateClasses(){
     let className = "MoleHole";
     if(this.props.mole){
@@ -19,10 +17,7 @@ class MoleHole extends Component {
 
   handleWhack = () => {
     const showWhack = this.props.whack;
-    const hideWhack = this.props.unwhack;
-    const showUntil = this.whackShowTime;
     showWhack();
-    setTimeout(hideWhack, showUntil);
   }
   render(){
     return (

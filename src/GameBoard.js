@@ -46,19 +46,18 @@ class GameBoard extends Component {
   }
 
   whack(hole){
-    this.setState(state => {
-      const prevHoleState = state.holes[hole];
-      const holes = state.holes.slice(0);
-      holes[hole] = { ...prevHoleState, whacked: true };
-      return { ...state, holes };
-    });
+    this._setHoleState(hole, 'whacked', true);
   }
 
   moleUp(hole){
+    this._setHoleState(hole, 'mole', true);
+  }
+
+  _setHoleState(hole, property, value) {
     this.setState(state => {
       const prevHoleState = state.holes[hole];
       const holes = state.holes.slice(0);
-      holes[hole] = { ...prevHoleState, mole: true };
+      holes[hole] = { ...prevHoleState, [property]: value };
       return { ...state, holes };
     });
   }

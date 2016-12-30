@@ -19,6 +19,7 @@ class MoleHole extends Component {
     const showWhack = this.props.whack;
     showWhack();
   }
+
   render(){
     return (
       <div

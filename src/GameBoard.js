@@ -12,7 +12,8 @@ class GameBoard extends Component {
 
   constructor(props){
     super(props);
-    this.state = { holes: [] };
+    this.timeStarted = Date.now();
+    this.state = { holes: [], hit: 0, escaped: 0, missed: 0, timeElapsed: 0 };
     for(let i = 0; i < this.rows * this.holesPerRow; i++) {
       this.state.holes.push({mole: false, whacked: false});
     }
@@ -21,6 +22,7 @@ class GameBoard extends Component {
   componentDidMount() {
     window.onkeydown = this.handleKeyDown;
     this.tick();
+    setInterval(this.calculateTimeElapsed, 1000);
   }
 
   handleKeyDown = (event) => {
@@ -75,6 +77,8 @@ class GameBoard extends Component {
   }
 
   whack = (hole) => {
+    const isHit = this.state.holes[hole].mole;
+    isHit ? this.addHit() : this.addMiss();
     this._setHoleState(hole, 'whacked', true);
     setTimeout(this.unwhack.bind(this, hole), this.whackShowDuration);
   }
@@ -89,7 +93,29 @@ class GameBoard extends Component {
   }
 
   moleDown = (hole) => {
+    if(this.state.holes[hole].mole) this.addEscaped();
     this._setHoleState(hole, 'mole', false);
+  }
+
+  addHit = () => {
+    this.setState( { hit: this.state.hit + 1 } );
+  }
+
+  addMiss = () => {
+    this.setState( { missed: this.state.missed + 1 } );
+  }
+
+  addEscaped = () => {
+    this.setState( { escaped: this.state.escaped + 1 } );
+  }
+
+  calculateTimeElapsed = () => {
+    const time = Date.now() - this.timeStarted;
+    this.setState( { timeElapsed: Math.floor(time/1000) } );
+  }
+
+  elapsedTime = () => {
+    return this.state.timeElapsed;
   }
 
   _setHoleState = (hole, property, value) => {
@@ -105,6 +131,22 @@ class GameBoard extends Component {
     return (
       <div className="GameBoard">
         { Array(this.rows).fill().map((_, i) => this.moleRow(i)) }
+        <div className="GameBoardFooter">
+          <div className="scoreBoard">
+            <div className='score'>
+              HIT<br/>{this.state.hit}
+            </div>
+            <div className='score'>
+              MISSED<br/>{this.state.missed}
+            </div>
+            <div className='score'>
+              ESCAPED<br/>{this.state.escaped}
+            </div>
+            <div className='score'>
+              TIME<br/>{this.elapsedTime()}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

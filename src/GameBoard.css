@@ -18,3 +18,20 @@
 .MoleRow:last-child {
   margin-bottom: 5px;
 }
+
+.GameBoardFooter{
+  display: block;
+}
+
+.GameBoardFooter .scoreBoard {
+  display: flex;
+  flex: 1;
+}
+
+.GameBoardFooter .score{
+  padding: 5px;
+  flex: 1;
+  background-color: #222;
+  color: white;
+  margin: 0px;
+}

@@ -5,6 +5,9 @@ class MoleHole extends Component {
 
   calculateClasses(){
     let className = "MoleHole";
+
+    className += ` level${this.props.level}`;
+
     if(this.props.mole){
       className += " withMole";
     }

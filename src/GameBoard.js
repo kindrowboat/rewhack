@@ -9,11 +9,13 @@ class GameBoard extends Component {
   moleProbability = 1/3;
   tickFrequency = 2000;
   whackShowDuration = 250;
+  nextLevelEvery = 6;
+  levelUpMusic = new Audio('/level_up.mp3');
 
   constructor(props){
     super(props);
     this.timeStarted = Date.now();
-    this.state = { holes: [], hit: 0, escaped: 0, missed: 0, timeElapsed: 0 };
+    this.state = { holes: [], hit: 0, escaped: 0, missed: 0, timeElapsed: 0, level: 1 };
     for(let i = 0; i < this.rows * this.holesPerRow; i++) {
       this.state.holes.push({mole: false, whacked: false});
     }
@@ -64,6 +66,7 @@ class GameBoard extends Component {
           key={i}
           whack={this.whack.bind(this, i)}
           unwhack={this.unwhack.bind(this, i)}
+          level={this.state.level}
           {...holeState}
         />
       );
@@ -97,7 +100,14 @@ class GameBoard extends Component {
     this._setHoleState(hole, 'mole', false);
   }
 
+  levelUp = () =>  {
+    this.levelUpMusic.play();
+    this.setState( { level:  this.state.level + 1 } );
+  }
+
   addHit = () => {
+    const hit = this.state.hit + 1;
+    if(hit % this.nextLevelEvery === 0) this.levelUp();
     this.setState( { hit: this.state.hit + 1 } );
   }
 
@@ -133,6 +143,9 @@ class GameBoard extends Component {
         { Array(this.rows).fill().map((_, i) => this.moleRow(i)) }
         <div className="GameBoardFooter">
           <div className="scoreBoard">
+            <div className='score'>
+              LEVEL<br/>{this.state.level}
+            </div>
             <div className='score'>
               HIT<br/>{this.state.hit}
             </div>

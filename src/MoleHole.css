@@ -12,6 +12,15 @@
   background-size: 100% 100%;
 }
 
+.MoleHole.level2.withMole {
+  background-image: URL('/level2_mole_dark.png');
+}
+
+.MoleHole.level2.withMole.whacked.hit {
+  background-color: #ceb;
+  background-image: URL('/level2_mole_light.png');
+}
+
 .MoleHole.withMole.whacked.hit {
   background-color: #ceb;
   background-image: URL('/mole.svg');
